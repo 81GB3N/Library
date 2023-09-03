@@ -1,9 +1,9 @@
 const addPressed = document.querySelector('.button');
 const darker = document.querySelector('.darker');
-const submitPressed = document.querySelector('.book-button');
 
 console.log(darker);
 console.log(addPressed);
+// console.log(submitPressed);
 
 addPressed.addEventListener('click', () => {
 darker.classList.add('dark');
@@ -23,21 +23,26 @@ document.querySelector('.add-book').innerHTML +=
 <div class="read">
 <label for="read" class="read">Read</label>
 <input type="checkbox" name="read" class="read" />
-</div>`;
-submitPressed.innerHTML += '<button>Submit</button>';
+</div>
+<button class="btn">Submit</button>`;
+// submitPressed = document.querySelector('.book-button');
+// submitPressed.innerHTML += '<button>Submit</button>';
 document.querySelector('.add-book').style.border = "2px solid black";
-console.log('dark');
+ const submitPressed = document.querySelector('.btn');
+// console.log('dark');
     // addBook();
+    console.log(submitPressed);
+    submitPressed.addEventListener('click', () =>{
+        console.log('submit');
+        darker.classList.remove('dark');
+        document.querySelector('.add-book').innerHTML = '';
+        document.querySelector('.add-book').style.border = "";
+
+    })
 
 })
 
-console.log(submitPressed);
 
-submitPressed.addEventListener('click', () =>{
-    console.log('submit');
-    darker.classList.remove('dark');
-    document.querySelector('.add-book').innerHTML = '';
-})
 
 function addBook(){
     
