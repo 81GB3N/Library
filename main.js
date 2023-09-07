@@ -43,17 +43,18 @@ const main = document.querySelector('.main');
 
 function addBook(){
     // console.log(document.querySelector('#title').value);
+
     main.innerHTML += 
     `<div class="card">
     <div class="ans-title"></div>
     <div class="ans-author"></div>
     <div class="ans-pages"></div>
     <div class="ans-read"></div>
-    <div class="remove"></div>
+    <button class="remove">Remove</button>
   </div>`;
-  document.querySelector('.ans-title').innerHTML = title;
-  document.querySelector('.ans-author').innerHTML = author;
-  document.querySelector('.ans-pages').innerHTML = pages;
-  read === 'on' ? document.querySelector('.ans-read').innerHTML = 'read' : document.querySelector('.ans-read').innerHTML = 'not read';
+  document.querySelector('.ans-title').innerHTML += title;
+  document.querySelector('.ans-author').innerHTML += author;
+  document.querySelector('.ans-pages').innerHTML += pages;
+  read === 'on' ? document.querySelector('.ans-read').innerHTML += 'read' : document.querySelector('.ans-read').innerHTML += 'not read';
   main.querySelector('.card').style.border = "2px solid black";
 }
