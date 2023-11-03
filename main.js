@@ -1,60 +1,51 @@
-const addPressed = document.querySelector('.button');
-const darker = document.querySelector('.darker');
-let title, author, pages, read;
+const dialog = document.querySelector("dialog");
+const showButton = document.querySelector(".add-book");
+const closeButton = document.querySelector(".submit");
+const main = document.querySelector(".main");
 
-addPressed.addEventListener('click', () => {
-darker.classList.add('dark');
-document.querySelector('.add-book').innerHTML += 
-`<div class="title">
-<label for="title" class="title">Title</label>
-<input type="text" name="title" id="title" />
-</div>
-<div class="author">
-<label for="author" class="author">author</label>
-<input type="text" name="author" id="author" />
-</div>
-<div class="pages">
-<label for="pages" class="pages">pages</label>
-<input type="number" name="pages" id="pages" min="1" />
-</div>
-<div class="read">
-<label for="read" class="read">Read</label>
-<input type="checkbox" name="read" id="read" />
-</div>
-<button class="btn">Submit</button>`;
-document.querySelector('.add-book').style.border = "2px solid black";
- const submitPressed = document.querySelector('.btn');
-    console.log(submitPressed);
-    submitPressed.addEventListener('click', () =>{
-        title = document.querySelector('#title').value;
-        author = document.querySelector('#author').value;
-        pages = document.querySelector('#pages').value;
-        read = document.querySelector('#read').value;
-        // console.log('submit');
-        darker.classList.remove('dark');
-        document.querySelector('.add-book').innerHTML = '';
-        document.querySelector('.add-book').style.border = '';
-        addBook();
-    })
-})
-
-const main = document.querySelector('.main');
-// console.log(title, author, pages, read);
+let allBooks = [];
+let book = {};
 
 function addBook(){
-    // console.log(document.querySelector('#title').value);
-
-    main.innerHTML += 
-    `<div class="card">
-    <div class="ans-title"></div>
-    <div class="ans-author"></div>
-    <div class="ans-pages"></div>
-    <div class="ans-read"></div>
-    <button class="remove">Remove</button>
-  </div>`;
-  document.querySelector('.ans-title').innerHTML += title;
-  document.querySelector('.ans-author').innerHTML += author;
-  document.querySelector('.ans-pages').innerHTML += pages;
-  read === 'on' ? document.querySelector('.ans-read').innerHTML += 'read' : document.querySelector('.ans-read').innerHTML += 'not read';
-  main.querySelector('.card').style.border = "2px solid black";
+  book = {};
+  book.title = document.querySelector("#title").value;
+  book.author = document.querySelector("#author").value;
+  book.pages = document.querySelector("#pages").value;
+  document.querySelector("#read").checked ? book.read = 'read' : book.read = 'not read';
+  allBooks.push(book);
 }
+
+function displayBooks(){
+  main.innerHTML = ``;
+  for(let i = 0; i < allBooks.length; i++){
+    main.innerHTML +=
+  `<div class="card card${i+1}">
+    <div class="title">Title: ${allBooks[i].title}</div>
+    <div class="author">Author: ${allBooks[i].author}</div>
+    <div class="pages">Pages: ${allBooks[i].pages}</div>
+    <div class="read">Read: ${allBooks[i].read}</div>
+    <button class="remove">Remove</button>
+  </div>`
+  }
+}
+
+showButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+  dialog.close();
+  addBook();
+  displayBooks();
+  console.log(allBooks); 
+})
+
+main.addEventListener('click', e =>{
+  const underMouse = document.elementFromPoint(e.clientX, e.clientY);
+  if(underMouse.classList.value == 'remove'){
+    console.log(underMouse.parentElement.classList[1].split('card')[1]-1 );
+    allBooks.splice(underMouse.parentElement.classList[1].split('card')[1]-1, 1);
+    displayBooks();
+  }
+})
+//overflow
